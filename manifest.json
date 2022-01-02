@@ -1,0 +1,12 @@
+{
+  "name": "Email Labeler",
+  "description": "This is an automating email labeling extension done by lambda",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
