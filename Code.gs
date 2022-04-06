@@ -17,6 +17,10 @@ function start() {
   assignGeneral();
   assignSeminar();
   assignOcs();
+  assignNewjoins();
+  assignVivavoice();
+  assignAcademics();
+  assignAnnouncements();
 }
 
 function clubsLabels() {
@@ -27,15 +31,29 @@ function clubsLabels() {
   // creating label named clubs and then creating sublabels i.e clubs
 }
 
+function assignAnnouncements(){
+  GmailApp.createLabel('Announcements');
+  for(i=0;i<GmailApp.getInboxThreads()[i].length;i++){
+    var message=GmailApp.getInboxThreads()[i].getMessages()[0];
+    var ann=new RegExp("announcement","i");
+    if(ann.test(message.getReplyTo())|| ann.test(message.getTo()) || ann.test(message.getFrom())|| ann.test(message.getCc())|| ann.test(message.getBcc()))
+    GmailApp.getInboxThreads()[i].addLabel(GmailApp.getUserLabelByName('Announcements'))
+  }
+}
+
 function general() {
   GmailApp.createLabel("Office of Career services");
   GmailApp.createLabel("mess");
-  GmailApp.createLabel("Hostel Office");
+  GmailApp.createLabel("Hostel Related");
   GmailApp.createLabel("Found and Lost");
   GmailApp.createLabel('sports');
   GmailApp.createLabel('Interns Related');
   GmailApp.createLabel("General");
   GmailApp.createLabel("Seminars and Colloquium");
+  GmailApp.createLabel('New joining');
+  GmailApp.createLabel('Viva voice');
+  GmailApp.createLabel('Academics');
+  GmailApp.createLabel('Academics/Grade cards');
   // Here we are creating general labels like Hostel office, Mess, Found and Lost, Sports, Internship related
 }
 
@@ -43,12 +61,50 @@ function assignSeminar(){
   var threads=GmailApp.getInboxThreads();
   for(i=0;i<threads.length;i++){
     var seminar=new RegExp("seminar","i");
+    var coll=new RegExp("colloquium","i");
     // adding labels for seminars and Colloquium announcements 
-    if(seminar.test(threads[i].getMessages()[0].getFrom())||seminar.test(threads[i].getMessages()[0].getPlainBody())){
-      GmailApp.createLabel("Seminars and Colloquium")
+    if(seminar.test(threads[i].getMessages()[0].getFrom())||seminar.test(threads[i].getMessages()[0].getPlainBody()||coll.test(threads[i].getMessages()[0].getSubject()))){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Seminars and Colloquium'))
     }
   }
 }
+
+function assignAcademics(){
+  var threads=GmailApp.getInboxThreads();
+  for(i=0;i<threads.length;i++){
+    var grade=new RegExp("grade","i");
+    var card=new RegExp("card","i");
+    var acad=new RegExp("academic","i")
+    // adding labels for seminars and Colloquium announcements 
+    if(grade.test(threads[i].getMessages()[0].getSubject())&&card.test(threads[i].getMessages()[0].getSubject())){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Academics/Grade cards'))
+    }
+    if(acad.test(threads[i].getMessages()[0].getFrom())){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Academics'))
+    }
+  }
+}
+
+function assignVivavoice(){
+  var threads=GmailApp.getInboxThreads();
+  for (i = 0; i < threads.length; i++) {
+    var message = threads[i].getMessages()[0];
+    var viva=new RegExp("viva","i")
+    if (viva.test(message.getSubject()))
+      threads[i].addLabel(GmailApp.getUserLabelByName("Viva voice"));
+  }
+}
+
+function assignNewjoins(){
+  var threads=GmailApp.getInboxThreads();
+  for (i = 0; i < threads.length; i++) {
+    var message = threads[i].getMessages()[0];
+    var place=new RegExp("new joining","i")
+    if (place.test(message.getSubject()))
+      threads[i].addLabel(GmailApp.getUserLabelByName("New joining"));
+  }
+}
+
 function assignOcs(){
   var threads=GmailApp.getInboxThreads();
   for (i = 0; i < threads.length; i++) {
@@ -125,7 +181,7 @@ function assignmess() {
     if (message.getReplyTo() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getTo() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getFrom() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getCc() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getBcc() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>')
       threads[i].addLabel(GmailApp.getUserLabelByName("mess"));
 
-    var m = new RegExp('mess menu', "i");
+    var m = new RegExp('mess$', "i");
     if (m.test(threads[i].getMessages()[0].getReplyTo()) || m.test(threads[i].getMessages()[0].getFrom()) || m.test(threads[i].getMessages()[0].getPlainBody()) || m.test(threads[i].getMessages()[0].getBcc()) || m.test(threads[i].getMessages()[0].getCc()) || m.test(threads[i].getMessages()[0].getSubject()) || m.test(threads[i].getMessages()[0].getBody()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
 
@@ -143,7 +199,7 @@ function assignhosteloffice() {
     var message = threads[i].getMessages()[0];
     var hostel = new RegExp("hostel","i");
     if (message.getReplyTo() === 'Hostel Office IIT Hyderabad <office.hostel@iith.ac.in>' || message.getTo() === 'Hostel Office IIT Hyderabad <office.hostel@iith.ac.in>' || message.getFrom() === 'Hostel Office IIT Hyderabad <office.hostel@iith.ac.in>' || message.getCc() === 'Hostel Office IIT Hyderabad <office.hostel@iith.ac.in>' || message.getBcc() === 'Hostel Office IIT Hyderabad <office.hostel@iith.ac.in>'||hostel.test(message.getSubject()))
-      threads[i].addLabel(GmailApp.getUserLabelByName("Hostel Office"));
+      threads[i].addLabel(GmailApp.getUserLabelByName("Hostel Related"));
   }
 }
 
