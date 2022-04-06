@@ -21,8 +21,31 @@ function start() {
   assignVivavoice();
   assignAcademics();
   assignAnnouncements();
+  assignDirector();
+  assignGoogleclassroom();
 }
 
+function assignDirector(){
+  GmailApp.createLabel('Director');
+  var threads=GmailApp.getInboxThreads();
+  for(i=0;i<threads.length;i++){
+    var message = threads[i].getMessages()[0];
+    if(message.getFrom()=='Director IIT Hyderabad <director@iith.ac.in>'){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Director'));
+    }
+  }
+}
+
+function assignGoogleclassroom(){
+  GmailApp.createLabel('Google classroom');
+  var threads=GmailApp.getInboxThreads();
+  for(i=0;i<threads.length;i++){
+    var message = threads[i].getMessages()[0];
+    if(message.getFrom().includes('@classroom.google.com')){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Google classroom'));
+    }
+  }
+}
 function clubsLabels() {
   GmailApp.createLabel("clubs");
   for (i = 0; i < sublabels.length; i++) {
@@ -54,6 +77,7 @@ function general() {
   GmailApp.createLabel('Viva voice');
   GmailApp.createLabel('Academics');
   GmailApp.createLabel('Academics/Grade cards');
+  GmailApp.createLabel('Academics/Exams');
   // Here we are creating general labels like Hostel office, Mess, Found and Lost, Sports, Internship related
 }
 
@@ -75,6 +99,10 @@ function assignAcademics(){
     var grade=new RegExp("grade","i");
     var card=new RegExp("card","i");
     var acad=new RegExp("academic","i")
+    var course = new RegExp("course","i");
+    var exam = new RegExp("exam","i");
+    var paper = new RegExp("question paper","i");
+    var viva=new RegExp("viva","i");
     // adding labels for seminars and Colloquium announcements 
     if(grade.test(threads[i].getMessages()[0].getSubject())&&card.test(threads[i].getMessages()[0].getSubject())){
       threads[i].addLabel(GmailApp.getUserLabelByName('Academics/Grade cards'))
@@ -82,6 +110,12 @@ function assignAcademics(){
     if(acad.test(threads[i].getMessages()[0].getFrom())){
       threads[i].addLabel(GmailApp.getUserLabelByName('Academics'))
     }
+    if(course.test(threads[i].getMessages()[0].getPlainBody())){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Academics'))
+    }
+    if(paper.test(threads[i].getMessages()[0].getSubject())||paper.test(threads[i].getMessages()[0].getPlainBody())||exam.test(threads[i].getMessages()[0].getSubject())||exam.test(threads[i].getMessages()[0].getPlainBody()&&!viva.test(threads[i].getMessages()[0].getSubject()))){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Academics/Exams'))
+  }
   }
 }
 
@@ -89,7 +123,7 @@ function assignVivavoice(){
   var threads=GmailApp.getInboxThreads();
   for (i = 0; i < threads.length; i++) {
     var message = threads[i].getMessages()[0];
-    var viva=new RegExp("viva","i")
+    var viva=new RegExp("viva","i");
     if (viva.test(message.getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName("Viva voice"));
   }
