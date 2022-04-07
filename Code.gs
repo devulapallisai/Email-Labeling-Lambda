@@ -68,7 +68,8 @@ function clubsLabels() {
 
 function assignAnnouncements(){
   GmailApp.createLabel('Announcements');
-  for(i=0;i<GmailApp.getInboxThreads()[i].length;i++){
+  var threads=GmailApp.getInboxThreads();
+  for(i=0;i<threads.length;i++){
     var message=GmailApp.getInboxThreads()[i].getMessages()[0];
     var ann=new RegExp("announcement","i");
     if(ann.test(message.getReplyTo())|| ann.test(message.getTo()) || ann.test(message.getFrom())|| ann.test(message.getCc())|| ann.test(message.getBcc()))
