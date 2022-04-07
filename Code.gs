@@ -1,7 +1,9 @@
 var sublabels = ["kludge", "Lambda", "Elektronica", "Epoch", "vibes", "RangdeManch", "litsoc", "Infero", "shuffle", "Robotix", "Torque", "Aero", "Prakriti"]
 // change the clubs here for making new clubs labels(these are sublabels pf label named clubs)
 
-
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Index');
+}
 function start() {
   // Here we have start of the function let we use it as main() in C and all functions to be executed must be in this function to be called for eg: func() in this
   // Creating Labels
@@ -113,7 +115,7 @@ function assignAcademics(){
     var card=new RegExp("card","i");
     var acad=new RegExp("academic","i")
     var course = new RegExp("course","i");
-    var exam = new RegExp("exam","i");
+    var exam = new RegExp("\\bexam\\b","i");
     var paper = new RegExp("question paper","i");
     var viva=new RegExp("viva","i");
     // adding labels for seminars and Colloquium announcements 
