@@ -195,7 +195,7 @@ function assignsports() {
   // Assigning sports labels 
   var threads = GmailApp.getInboxThreads();
   for (i = 0; i < threads.length; i++) {
-    var s = new RegExp('sport', "i");
+    var s = new RegExp('\\bsport\\b', "i");
     var t = new RegExp('tournament', "i");
     var co=new RegExp('court', "i");
     var fo=new RegExp('food court',"i");
@@ -215,7 +215,7 @@ function assignmess() {
     if (message.getReplyTo() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getTo() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getFrom() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getCc() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>' || message.getBcc() === 'Mess Secretary <mess_secya@gymkhana.iith.ac.in>')
       threads[i].addLabel(GmailApp.getUserLabelByName("mess"));
 
-    var m = new RegExp('mess$', "i");
+    var m = new RegExp('[\\s]+mess[\\s||?||.]+', "i");
     if (m.test(threads[i].getMessages()[0].getReplyTo()) || m.test(threads[i].getMessages()[0].getFrom()) || m.test(threads[i].getMessages()[0].getPlainBody()) || m.test(threads[i].getMessages()[0].getBcc()) || m.test(threads[i].getMessages()[0].getCc()) || m.test(threads[i].getMessages()[0].getSubject()) || m.test(threads[i].getMessages()[0].getBody()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
 
@@ -223,11 +223,10 @@ function assignmess() {
     if (f.test(threads[i].getMessages()[0].getReplyTo()) || f.test(threads[i].getMessages()[0].getFrom()) || f.test(threads[i].getMessages()[0].getPlainBody()) || f.test(threads[i].getMessages()[0].getBcc()) || f.test(threads[i].getMessages()[0].getCc()) || f.test(threads[i].getMessages()[0].getSubject()) || f.test(threads[i].getMessages()[0].getBody()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
 
-    var 
-    =new RegExp('ldh',"i");
+    var ldh=new RegExp('[\\s]+ldh[\\s||?||.]+',"i");
     if (ldh.test(threads[i].getMessages()[0].getPlainBody()) || ldh.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
-    var udh=new RegExp('udh',"i");
+    var udh=new RegExp('[\\s]+udh[\\s||?||.]+',"i");
     if (udh.test(threads[i].getMessages()[0].getPlainBody()) || udh.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
   }
@@ -248,11 +247,11 @@ function assignfoundlost() {
   // Check whether mail Subject has Lost  or Found and label accordingly 
   var threads = GmailApp.getInboxThreads();
   for (i = 0; i < threads.length; i++) {
-    var l = new RegExp('lost', "i");
+    var l = new RegExp('\\blost\\b', "i");
     if (l.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('Found and Lost'));
 
-    var f = new RegExp('found', "i");
+    var f = new RegExp('\\bfound\\b', "i");
     if (f.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('Found and Lost'));
   }
