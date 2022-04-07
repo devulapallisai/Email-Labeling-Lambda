@@ -20,6 +20,7 @@ function start() {
   assignNewjoins();
   assignVivavoice();
   assignAcademics();
+  assignLectureseries();
   assignAnnouncements();
   assignDirector();
   assignGoogleclassroom();
@@ -32,6 +33,17 @@ function assignDirector(){
     var message = threads[i].getMessages()[0];
     if(message.getFrom()=='Director IIT Hyderabad <director@iith.ac.in>'){
       threads[i].addLabel(GmailApp.getUserLabelByName('Director'));
+    }
+  }
+}
+
+function assignLectureseries(){
+  GmailApp.createLabel('Industry Lecture series');
+  var threads=GmailApp.getInboxThreads();
+  for(i=0;i<threads.length;i++){
+    var message = threads[i].getMessages()[0];
+    if(message.getFrom().includes('industry.lecture')){
+      threads[i].addLabel(GmailApp.getUserLabelByName('Industry Lecture series'));
     }
   }
 }
