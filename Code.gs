@@ -223,10 +223,11 @@ function assignmess() {
     if (f.test(threads[i].getMessages()[0].getReplyTo()) || f.test(threads[i].getMessages()[0].getFrom()) || f.test(threads[i].getMessages()[0].getPlainBody()) || f.test(threads[i].getMessages()[0].getBcc()) || f.test(threads[i].getMessages()[0].getCc()) || f.test(threads[i].getMessages()[0].getSubject()) || f.test(threads[i].getMessages()[0].getBody()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
 
-    var ldh=new RegExp('ldh$',"i");
+    var 
+    =new RegExp('ldh',"i");
     if (ldh.test(threads[i].getMessages()[0].getPlainBody()) || ldh.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
-    var udh=new RegExp('udh$',"i");
+    var udh=new RegExp('udh',"i");
     if (udh.test(threads[i].getMessages()[0].getPlainBody()) || udh.test(threads[i].getMessages()[0].getSubject()))
       threads[i].addLabel(GmailApp.getUserLabelByName('mess'));
   }
