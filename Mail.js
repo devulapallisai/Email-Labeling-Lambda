@@ -5,13 +5,13 @@ submitit.addEventListener("click", () => {
   console.log("clicked");
   if (yesornot.checked) {
     iframe.innerHTML = `<iframe
-    src="https://script.google.com/macros/s/AKfycby-dovV1srzdkp2gW-geaQZI0zJ2Wi0KPqtHdR3OLcQUCvx7UX_5ohqX5Tj8_0IgfZc/exec?readData=true"
+    src="https://script.google.com/a/macros/iith.ac.in/s/AKfycbw1b__MpyLukEcROCHG3DEVgNOXZzIkFgiYWbQAyz0KU6V6fZQnUka-UGljVYpSlQ0Okg/exec?readData=true"
     frameborder="0"
     width="450px"
   ></iframe>`;
   } else
     iframe.innerHTML = `<iframe
-  src="https://script.google.com/macros/s/AKfycby-dovV1srzdkp2gW-geaQZI0zJ2Wi0KPqtHdR3OLcQUCvx7UX_5ohqX5Tj8_0IgfZc/exec"
+  src="https://script.google.com/a/macros/iith.ac.in/s/AKfycbw1b__MpyLukEcROCHG3DEVgNOXZzIkFgiYWbQAyz0KU6V6fZQnUka-UGljVYpSlQ0Okg/exec"
   frameborder="0"
   width="450px"
 ></iframe>`;
