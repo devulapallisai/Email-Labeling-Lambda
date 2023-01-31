@@ -241,7 +241,7 @@ function assignmess(message,thread) {
       message.getCc() === "Mess Secretary <mess_secya@gymkhana.iith.ac.in>" ||
       message.getBcc() === "Mess Secretary <mess_secya@gymkhana.iith.ac.in>"
     )
-      threads[i].addLabel(GmailApp.getUserLabelByName("mess"));
+      thread.addLabel(GmailApp.getUserLabelByName("mess"));
 
     var m = new RegExp("[\\s]+mess[\\s||?||.]+", "i");
     if (
@@ -251,7 +251,7 @@ function assignmess(message,thread) {
       m.test(message.getCc()) ||
       m.test(message.getSubject())
     )
-      threads[i].addLabel(GmailApp.getUserLabelByName("mess"));
+      thread.addLabel(GmailApp.getUserLabelByName("mess"));
 
     var f = new RegExp("food", "i");
     if (
@@ -269,7 +269,7 @@ function assignmess(message,thread) {
       ldh.test(message.getSubject()) ||
       udh.test(message.getSubject())
     )
-      threads[i].addLabel(GmailApp.getUserLabelByName("mess"));
+      thread.addLabel(GmailApp.getUserLabelByName("mess"));
     if (readorNot === "true") {
       if (
         udh.test(message.getPlainBody()) ||
